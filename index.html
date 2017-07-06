@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="anApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Application</title>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="controllers.js"></script>
+    <script src="services/github.js"></script>
+</head>
+
+<body ng-controller="MainController">
+
+<form name="form" ng-submit="search(username)">
+    <input type="text" required ng-model="username">
+    <input type="submit" value="Search">
+</form>
+
+<div>
+    <img ng-src="{{ user.avatar_url }}"
+         title="{{ user.name }}"
+         alt="{{ user.name }}">
+</div>
+
+
+<select ng-model="sortOrder">
+    <option value="+name">Name</option>
+    <option value="+language">Language</option>
+    <option value="forks_count">Forks</option>
+</select>
+
+
+<table ng-show="user">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Language</th>
+            <th>Forks</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="repo in repos | orderBy:sortOrder">
+            <td>{{ repo.name }}</td>
+            <td>{{ repo.language }}</td>
+            <td>{{ repo.forks_count }}</td>
+        </tr>
+    </tbody>
+
+</table>
+
+</body>
+
+
+</html>
